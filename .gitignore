@@ -1,0 +1,8 @@
+node_modules
+projectsbt-*
+public/build 
+yarn-error.log
+release
+dist
+pnpm-lock.yaml
+.DS_Store
