@@ -9,7 +9,8 @@
 
   configStore.subscribe(() => {
     if ($configStore.profile == null) return;
-    let params = new URL($configStore.profile).searchParams;
+
+    console.log($configStore.profile);
 
     scraperService.getLectures($configStore.profile).then((data) => {
       lectureObj = data;
@@ -17,10 +18,12 @@
         let today = new Date();
         let date = new Date(lecture.data.split("-").reverse().join("/"));
 
-        if (date.getDate() < today.getDate()) {
-          pastLectures.push(lecture);
-        } else {
-          futureLectures.push(lecture);
+        if (lecture.nome_insegnamento) {
+          if (date.getDate() < today.getDate()) {
+            pastLectures.push(lecture);
+          } else {
+            futureLectures.push(lecture);
+          }
         }
       });
     });

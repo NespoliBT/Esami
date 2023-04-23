@@ -8,6 +8,9 @@
   let date = new Date(lecture.data.split("-").reverse().join("/"));
   let isToday = today.getDate() == date.getDate();
   let isPast = today.getDate() > date.getDate();
+  let isCancelled = lecture.nome_insegnamento == "Cancellata";
+
+  console.log(lecture.Annullato);
 </script>
 
 <div

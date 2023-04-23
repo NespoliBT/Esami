@@ -16,6 +16,18 @@
     configStore.update((state) => {
       state.profile = profile;
 
+      // Changes config to use today's date
+      if ($configStore.profile) {
+        new URL($configStore.profile).searchParams.forEach((value, key) => {
+          if (key == "date") {
+            state.profile = $configStore.profile.replace(
+              value,
+              new Date().toLocaleDateString("it-IT")
+            );
+          }
+        });
+      }
+
       return state;
     });
   });
