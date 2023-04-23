@@ -6,7 +6,7 @@
 </script>
 
 <div class="sidebar {open ? 'opened' : ''}">
-  <p>sidebar</p>
+  <p>sidebar WIPPP</p>
 
   <Selector />
 </div>
