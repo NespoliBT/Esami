@@ -1,0 +1,23 @@
+@import "../../scss/variables.scss";
+
+.selector {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 2px dashed var(--color_7);
+    padding-top: 16px;
+
+    .icon {
+        font-family: NerdFont;
+        font-size: 48px;
+        color: var(--color_6);
+        background-color: transparent;
+        cursor: pointer;
+        transition: .2s;
+
+        &:hover {
+            color: var(--color_4);
+            transform: scale(1.1);
+        }
+    }
+}

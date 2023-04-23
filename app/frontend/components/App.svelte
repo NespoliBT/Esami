@@ -1,25 +1,20 @@
 <script>
-  import { configService } from "../services/configService";
-  import { scraperService } from "../services/scraperService";
+  import { configService } from "app/frontend/services/configService";
   import { configStore } from "../stores";
   import Updater from "@components/Updater/Updater.svelte";
-  import { ipcRenderer } from "electron";
-
+  import Welcome from "@components/Welcome/Welcome.svelte";
+  import Main from "@components/Main/Main.svelte";
   import axios from "axios";
+
   axios.defaults.baseURL = "http://localhost:41968";
 
-  // ! Inizio schifo
+  let loading = true;
 
-  ipcRenderer.on("urlinfo", (e, msg) => {
-    scraperService.scrape(msg);
-  });
+  configService.get("profile").then((profile) => {
+    loading = false;
 
-
-  // ! Fine schifo
-
-  configService.get("gitlab").then((config) => {
     configStore.update((state) => {
-      state.gitlab = config;
+      state.profile = profile;
 
       return state;
     });
@@ -27,7 +22,11 @@
 </script>
 
 <div class="content">
-  asd3
+  {#if $configStore.profile == null && loading == false}
+    <Welcome />
+  {:else}
+    <Main />
+  {/if}
   <Updater />
 </div>
 

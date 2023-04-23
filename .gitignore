@@ -1,5 +1,5 @@
 node_modules
-projectsbt-*
+esami-*
 public/build 
 yarn-error.log
 release

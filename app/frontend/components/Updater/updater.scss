@@ -4,13 +4,13 @@
   position: fixed;
   top: 20px;
   right: 20px;
-  background: $color_2;
+  background: var(--color_2);
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: 3px solid $color_7;
+  border: 3px solid var(--color_7);
   overflow: hidden;
 
   .loading {
@@ -18,7 +18,7 @@
     border-radius: 100px;
     overflow: hidden;
     width: 200px;
-    background: $color_1;
+    background: var(--color_1);
     margin: 20px;
     margin-top: 0;
 
@@ -31,9 +31,9 @@
       width: 15px;
       -webkit-appearance: none;
       height: 15px;
-      background: $color_3;
+      background: var(--color_3);
       border-radius: 100%;
-      box-shadow: -300px 0 0 294px $color_3;
+      box-shadow: -300px 0 0 294px var(--color_3);
     }
   }
 

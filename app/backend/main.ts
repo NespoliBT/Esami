@@ -1,6 +1,6 @@
 import path from "path";
 import url from "url";
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import { autoUpdater } from "electron-updater";
 import { runServer } from "./server";
 require("dotenv").config();
@@ -22,13 +22,15 @@ const isDev: boolean = process.env.MODE === "dev" ? true : false;
 if (isDev) {
   require("electron-reload")(__dirname);
 }
+
 // Launches the main native window
 function launch() {
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    minWidth: 600,
-    minHeight: 400,
+    width: 1400,
+    height: 800,
+    minWidth: 800,
+    minHeight: 800,
+    alwaysOnTop: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -48,7 +50,9 @@ function launch() {
   win.on("closed", function () {
     win = null;
   });
+}
 
+ipcMain.on("setup", (event, arg) => {
   win2 = new BrowserWindow({
     width: 800,
     height: 600,
@@ -60,14 +64,13 @@ function launch() {
     let currentURL = win2.webContents.getURL();
 
     let url = new URL(currentURL)
-    if(new URLSearchParams(url.search).has("form-type")) {
-	win.webContents.send("urlinfo", currentURL.substring(0, currentURL.length - 1));
+    if (new URLSearchParams(url.search).has("form-type")) {
+      win.webContents.send("urlinfo", currentURL.substring(0, currentURL.length - 1));
 
-        win2.close();
+      win2.close();
     }
-
   })
-}
+});
 
 // Mac stuff I'd rather not know about
 app.on("window-all-closed", function () {

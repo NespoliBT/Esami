@@ -1,11 +1,8 @@
 import axios from "axios";
-import * as cheerio from "cheerio";
+import { configService } from "./configService";
 
 export module scraperService {
-    export async function scrape(url) {
-
-        console.log("Scraping...");
-
+    export async function getLectures(url) {
         let data = url
 
         const response = await axios.post(
@@ -22,14 +19,6 @@ export module scraperService {
             }
         )
 
-        console.log(response.data)
-
-        const html = response.data;
-
-        const $ = cheerio.load(html);
-
-        const articles = $(".rTableBodyLegend");
-
-        console.log(articles)
+        return response.data
     }
 }

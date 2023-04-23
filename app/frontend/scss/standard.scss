@@ -1,17 +1,35 @@
-@mixin button($background) {
-  transition: 0.2s;
-  background-color: $background;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-  border-radius: 100px;
-  user-select: none;
-  cursor: pointer;
-  box-shadow: 0 0 20px -10px black;
+@import "./variables.scss";
 
-  &:hover {
-    opacity: 1;
-    transform: scale(1.05);
+:global(*) {
+  &::-webkit-scrollbar {
+    width: 10px;
   }
+
+  &::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color_3);
+    border-radius: 20px;
+  }
+
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  box-sizing: border-box;
+  font-weight: 100;
+  color: var(--color_9);
+  user-select: none;
+}
+
+:global(body) {
+  background: var(--color_1);
+  font-family: DMSans;
+}
+
+:global(body, html) {
+  height: 100%;
+  width: 100%;
 }

@@ -1,0 +1,63 @@
+@import "../../scss/variables.scss";
+
+.welcome-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+
+  .welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    background-color: var(--color_2);
+    width: 500px;
+    padding: 32px;
+    border-radius: 16px;
+
+    .icon {
+      font-family: NerdFont;
+      font-size: 150px;
+      color: var(--color_6);
+      margin-bottom: -50px;
+    }
+
+    .title {
+      font-family: Pacifico;
+      font-size: 72px;
+      font-weight: 100;
+      color: var(--color_6);
+    }
+
+    .start {
+      font-size: 36px;
+      margin: 32px 0;
+      background-color: var(--color_1);
+      color: var(--color_4);
+      border: 2px solid var(--color_4);
+      width: calc(100% - 32px);
+      padding: 16px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: .2s;
+      text-transform: uppercase;
+
+      &:hover {
+        transform: scale(1.05);
+        background-color: var(--color_4);
+        color: var(--color_1);
+      }
+    }
+
+    .note {
+      text-align: justify;
+      max-width: 500px;
+      font-size: 14px;
+    }
+  }
+}

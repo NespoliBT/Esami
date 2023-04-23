@@ -13,14 +13,14 @@ export module initDB {
    */
   export function getDB(dbName: string) {
     // If the database folder does not exist it gets created
-    if (!fs.existsSync(`${homedir}/.projectsbt/`)) {
-      fs.mkdirSync(`${homedir}/.projectsbt/`);
+    if (!fs.existsSync(`${homedir}/.esami/`)) {
+      fs.mkdirSync(`${homedir}/.esami/`);
     }
 
     // If a connection to the database does not already exist it creates one
     // It also creates the database if it does not exist and runs it's migrations
     if (!db) {
-      db = new Database(`${homedir}/.projectsbt/${dbName}`);
+      db = new Database(`${homedir}/.esami/${dbName}`);
 
       runMigrations(db);
     }
@@ -35,50 +35,6 @@ export module initDB {
  * @param db The connection to the database
  */
 function runMigrations(db: Database) {
-  // Creates the projects table
-  db.exec(`
-  CREATE TABLE IF NOT EXISTS projects (
-    id             INTEGER PRIMARY KEY AUTOINCREMENT,
-    
-    name           TEXT,
-    technology     TEXT,
-    description    TEXT
-  )
-`);
-
-  // Creates the enviroments table
-  db.exec(`
-  CREATE TABLE IF NOT EXISTS enviroments (
-    id             INTEGER PRIMARY KEY AUTOINCREMENT,
-
-    projectId      INTEGER,
-    name           TEXT
-  )
-`);
-
-  // Creates the plugins table
-  db.exec(`
-  CREATE TABLE IF NOT EXISTS plugins (
-    id             INTEGER PRIMARY KEY AUTOINCREMENT,
-    enviromentId   INTEGER,
-    projectId      INTEGER,
-    name           TEXT
-  )
-`);
-
-  // Creates the inputs table
-  db.exec(`
-  CREATE TABLE IF NOT EXISTS inputs (
-    id             INTEGER PRIMARY KEY AUTOINCREMENT,
-
-    pluginId       INTEGER,
-
-    name           TEXT,
-    type           TEXT,
-    value          TEXT
-  )
-`);
-
   // Creates the config table
   db.exec(`
   CREATE TABLE IF NOT EXISTS config (
