@@ -4,13 +4,15 @@
   import Sidebar from "@components/Sidebar/Sidebar.svelte";
 
   let sidebarStatus = false;
+
+  let selectedDate: Date;
 </script>
 
 <div class="main">
-  <Sidebar bind:open={sidebarStatus} />
+  <Sidebar bind:open={sidebarStatus} bind:selectedDate />
   <div class="right-container {sidebarStatus ? 'small' : ''}">
     <div class="right">
-      <Calendar />
+      <Calendar {selectedDate} />
     </div>
   </div>
 </div>

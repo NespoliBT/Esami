@@ -18,6 +18,31 @@ $width: 300px;
     &.opened {
         transform: translateX(0);
     }
+
+    .date-selection {
+        .title {
+            font-size: 24px;
+            color: var(--color_4);
+            margin-bottom: 16px;
+        }
+
+        input[type="date"] {
+            background-color: var(--color_2);
+            color: var(--color_9);
+            border: 2px solid var(--color_4);
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 16px;
+            font-family: DMSans;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 16px;
+
+            &::-webkit-calendar-picker-indicator {
+                filter: invert(1);
+            }
+        }
+    }
 }
 
 .open {

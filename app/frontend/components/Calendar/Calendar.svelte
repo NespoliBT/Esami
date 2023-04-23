@@ -7,19 +7,40 @@
   let pastLectures: any = [];
   let futureLectures: any = [];
 
+  export let selectedDate;
+
+  $: {
+    // Changes config to use the date selected by the user
+    if ($configStore.profile && selectedDate) {
+      let newDate = selectedDate.split("-").reverse().join("-");
+      configStore.update((state) => {
+        new URL($configStore.profile).searchParams.forEach((value, key) => {
+          if (key == "date") {
+            state.profile = $configStore.profile.replace(value, newDate);
+          }
+        });
+        return state;
+      });
+    }
+  }
+
   configStore.subscribe(() => {
     if ($configStore.profile == null) return;
 
-    console.log($configStore.profile);
-
     scraperService.getLectures($configStore.profile).then((data) => {
       lectureObj = data;
+
+      pastLectures = [];
+      futureLectures = [];
+
       lectureObj.celle.forEach((lecture: any) => {
         let today = new Date();
         let date = new Date(lecture.data.split("-").reverse().join("/"));
 
+        console.log(date.getDate(), today.getDate());
+
         if (lecture.nome_insegnamento) {
-          if (date.getDate() < today.getDate()) {
+          if (date < today) {
             pastLectures.push(lecture);
           } else {
             futureLectures.push(lecture);
@@ -30,7 +51,7 @@
   });
 </script>
 
-<div class="title">Calendario</div>
+<div class="title">Calendario Settimanale</div>
 
 {#if lectureObj.legenda == undefined}
   <div class="calendar">Loading...</div>

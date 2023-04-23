@@ -11,7 +11,6 @@
     background: #212931;
     box-shadow: 0 0 20px -5px #00000033;
     transition: .2s;
-    cursor: pointer;
 
     &.past {
         height: fit-content;
@@ -42,10 +41,6 @@
 
     &.today {
         border: 2px solid var(--color_6);
-    }
-
-    &:hover {
-        scale: 1.03;
     }
 
     .name {

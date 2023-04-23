@@ -1,16 +1,18 @@
 <script lang="ts">
-  import { scale } from "svelte/transition";
+  import { fly, scale } from "svelte/transition";
 
   export let lecture;
   export let i;
 
   let today = new Date();
   let date = new Date(lecture.data.split("-").reverse().join("/"));
-  let isToday = today.getDate() == date.getDate();
-  let isPast = today.getDate() > date.getDate();
-  let isCancelled = lecture.nome_insegnamento == "Cancellata";
+  let isToday =
+    today.getDate() == date.getDate() &&
+    today.getMonth() == date.getMonth() &&
+    today.getFullYear() == date.getFullYear();
+  let isPast = today > date;
 
-  console.log(lecture.Annullato);
+  //check if the lecture is this day of the year
 </script>
 
 <div
@@ -20,7 +22,6 @@
     {isPast ? 'past' : ''}
   "
   in:scale={{ delay: 100 * i }}
-  style=""
 >
   <div class="name">
     {lecture.nome_insegnamento}
