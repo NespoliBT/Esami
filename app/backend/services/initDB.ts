@@ -35,7 +35,26 @@ export module initDB {
  * @param db The connection to the database
  */
 function runMigrations(db: Database) {
-  // Creates the config table
+  db.exec(`
+  CREATE TABLE IF NOT EXISTS exams (
+    id             INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    name           TEXT,
+    value          TEXT
+  )
+`);
+
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS exams_meta (
+      id          INTEGER PRIMARY KEY AUTOINCREMENT,
+      
+      exam_id     INTEGER,
+
+      name        TEXT,
+      value       TEXT
+    )
+  `);
+
   db.exec(`
   CREATE TABLE IF NOT EXISTS config (
     id             INTEGER PRIMARY KEY AUTOINCREMENT,

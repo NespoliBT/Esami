@@ -1,13 +1,24 @@
 <script lang="ts">
   import Selector from "@components/Selector/Selector.svelte";
+  import ExamsSide from "@components/ExamsSide/ExamsSide.svelte";
+  import NewExamForm from "@components/NewExamForm/NewExamForm.svelte";
+  import { sectionStore } from "app/frontend/stores";
+  import Settings from "@components/Settings/Settings.svelte";
+  import { fly } from "svelte/transition";
+  import CalendarPicker from "@components/CalendarPicker/CalendarPicker.svelte";
 
-  export let open = false;
+  export let open = false; // ! TODO setting true does nothing?
   export let selectedDate;
 
-  let section = "calendar";
+  let newExamFormOpen = false;
+  let section = $sectionStore.section;
+
+  sectionStore.subscribe(() => {
+    section = $sectionStore.section;
+  });
 
   document.addEventListener("keydown", function (e) {
-    if (e.key == "Tab") {
+    if (e.key == "Tab" && e.shiftKey) {
       open = !open;
     }
   });
@@ -15,14 +26,14 @@
 
 <div class="sidebar {open ? 'opened' : ''}">
   {#if section == "calendar"}
-    <div class="date-selection">
-      <div class="title">Seleziona una data</div>
-      <input type="date" bind:value={selectedDate} />
+    <div class="date-selection" in:fly={{ x: -200 }} out:fly={{ x: 200 }}>
+      <div class="title">Settimana</div>
+      <CalendarPicker />
     </div>
   {:else if section == "exams"}
-    esami
+    <ExamsSide bind:openForm={newExamFormOpen} />
   {:else if section == "settings"}
-    settings
+    <Settings />
   {/if}
   <Selector />
 </div>
@@ -37,6 +48,10 @@
     
   </button>
 </div>
+
+{#if newExamFormOpen}
+  <NewExamForm bind:open={newExamFormOpen} />
+{/if}
 
 <style lang="scss">
   @import "./sidebar.scss";

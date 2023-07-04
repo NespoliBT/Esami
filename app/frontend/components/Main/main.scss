@@ -10,9 +10,10 @@
         height: 100%;
         width: 100%;
         transition: .4s;
+        overflow: hidden;
 
         &.small {
-            width: calc(100% - 300px);
+            width: calc(100% - 500px);
         }
 
         .right {

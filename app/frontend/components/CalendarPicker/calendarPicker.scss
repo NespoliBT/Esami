@@ -1,0 +1,162 @@
+@import "../../scss/variables.scss";
+
+.calendarPicker {
+    border: 2px solid var(--color_4);
+    width: 100%;
+    padding: 16px 24px;
+    border-radius: 16px;
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 200;
+
+    .date {
+        display: flex;
+        font-size: 1.7rem;
+
+        input {
+            background-color: transparent;
+            font-size: 1.7rem;
+            text-align: center;
+
+            &.day,
+            &.month {
+                width: 32px;
+            }
+
+            &.year {
+                width: 75px;
+            }
+        }
+    }
+
+    .icon {
+        font-family: NerdFont;
+        font-size: 2.5rem;
+        background-color: transparent;
+    }
+}
+
+.fullView {
+    position: absolute;
+    z-index: 10;
+    background-color: var(--color_2);
+    padding: 16px;
+    border-radius: 16px;
+    border: 2px solid var(--color_4);
+    top: 32px;
+
+    .header {}
+
+    .monthYearSelector-container {
+        margin-bottom: 32px;
+
+        .monthSelector {
+            border: 2px solid var(--color_4);
+            background-color: transparent;
+            font-size: 1.5rem;
+            padding: 8px 32px;
+            border-radius: 50px;
+
+            &:after {
+                content: "";
+                font-family: NerdFont;
+                margin-left: 20px;
+
+            }
+
+            &.open {
+                &:after {
+                    content: "";
+                }
+            }
+        }
+
+        .monthDropdown {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--color_2);
+            z-index: 20;
+            border: 2px solid var(--color_4);
+            border-radius: 16px;
+            margin-top: 16px;
+            padding: 16px;
+            gap: 8px;
+            font-size: 1.5rem;
+
+            .month {
+                padding: 8px 24px;
+                border-radius: 50px;
+                cursor: pointer;
+                background-color: transparent;
+                font-size: 1.5rem;
+
+                &:hover {
+                    background-color: var(--color_6);
+                }
+            }
+        }
+    }
+
+    .calendar {
+        width: fit-content;
+        position: relative;
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+
+            .weekday {
+                text-align: center;
+                font-size: 1.5rem;
+                padding: 0 12px;
+                border-right: 2px dashed var(--color_7);
+                width: 75px;
+                height: 30px;
+
+                &:last-child {
+                    border-right: none;
+                }
+            }
+        }
+    }
+
+    .weekSelector {
+        position: absolute;
+        background-color: var(--color_4);
+        height: 50px;
+        width: 100%;
+        border-radius: 50px;
+        opacity: 0.8;
+    }
+
+    .days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+
+        .day {
+            border-right: 2px dashed var(--color_7);
+            border-bottom: 2px dashed var(--color_7);
+
+            aspect-ratio: 1/1;
+            display: grid;
+            place-items: center;
+            padding: 16px;
+            font-size: 1.5rem;
+            position: relative;
+
+            background-color: transparent;
+
+            cursor: pointer;
+
+            &.last {
+                border-bottom: none;
+            }
+
+            &:nth-child(7n+7) {
+                border-right: none;
+            }
+        }
+    }
+}

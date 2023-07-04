@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import configRoute from "./routes/config";
 import { initDB } from "./services/initDB";
+import examRoute from "./routes/exam";
 
 // Main server function
 export function runServer() {
@@ -17,6 +18,7 @@ export function runServer() {
 
   // Routes
   app.use("/config", configRoute);
+  app.use("/exam", examRoute);
 
   // The port used by the server
   app.listen(41968);

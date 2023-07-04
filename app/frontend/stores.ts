@@ -5,3 +5,9 @@ export const configStore: Writable<{
 }> = writable({
   profile: null,
 });
+
+export const sectionStore: Writable<{
+  section: string;
+}> = writable({
+  section: "calendar",
+});

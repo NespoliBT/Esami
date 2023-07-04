@@ -1,0 +1,18 @@
+@import "../../scss/variables.scss";
+
+.examsSide {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 32px;
+
+    .title {
+        @include title;
+    }
+
+    .new {
+        @include button;
+    }
+}
