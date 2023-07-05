@@ -106,6 +106,7 @@
         .weekdays {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
+            border-bottom: 2px dashed var(--color_7);
 
             .weekday {
                 text-align: center;

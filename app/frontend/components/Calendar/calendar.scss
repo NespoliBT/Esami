@@ -2,7 +2,9 @@
 
 .container {
     position: absolute;
-    width: 100%;
+    width: calc(100% - 64px);
+    left: 32px;
+    margin: 0 auto;
 }
 
 .calendar {
