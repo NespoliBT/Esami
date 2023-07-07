@@ -38,13 +38,10 @@
 }
 
 .fullView {
-    position: absolute;
-    z-index: 10;
     background-color: var(--color_2);
     padding: 16px;
     border-radius: 16px;
     border: 2px solid var(--color_4);
-    top: 32px;
 
     .header {}
 
@@ -57,6 +54,7 @@
             font-size: 1.5rem;
             padding: 8px 32px;
             border-radius: 50px;
+            cursor: pointer;
 
             &:after {
                 content: "";
@@ -114,7 +112,7 @@
                 padding: 0 12px;
                 border-right: 2px dashed var(--color_7);
                 width: 75px;
-                height: 30px;
+                height: 40px;
 
                 &:last-child {
                     border-right: none;
@@ -130,6 +128,7 @@
         width: 100%;
         border-radius: 50px;
         opacity: 0.8;
+        transition: .2s ease-in-out;
     }
 
     .days {

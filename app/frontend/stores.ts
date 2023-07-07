@@ -9,5 +9,5 @@ export const configStore: Writable<{
 export const sectionStore: Writable<{
   section: string;
 }> = writable({
-  section: "calendar",
+  section: "exams",
 });

@@ -15,11 +15,20 @@ export module examController {
   }
 
   export function set(req, res) {
-    const { name, value, id } = req.body;
+    let { name, value, id } = req.body;
 
-    if (!id) examService.set(name, value);
-    else examService.set(name, value, id);
-    res.status(200).json({ message: "Exam saved" });
+    if (!id) {
+      id = examService.set(name, value);
+    } else examService.set(name, value, id);
+    res.status(200).json({ message: "Exam saved", id });
+  }
+
+  export function metaSet(req, res) {
+    const { metas } = req.body;
+
+    examService.metaSet(metas);
+
+    res.status(200);
   }
 
   export function remove(req, res) {

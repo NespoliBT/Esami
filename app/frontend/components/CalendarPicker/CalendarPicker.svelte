@@ -7,11 +7,12 @@
   let month = now.getMonth() + 1;
   let year = now.getFullYear();
 
-  let fullView = false;
-
   let selectedDay = null;
 
   let monthDropdownOpen = false;
+
+  let nOfDays;
+  let daysOffset;
 
   const months = [
     "Gennaio",
@@ -43,31 +44,60 @@
     return daysInMonth[month - 1];
   }
 
-  $: nOfDays = getNumberOfDays(month, year);
-
-  $: daysOffset = new Date(year, month - 1, 1).getDay();
+  $: month, year && updateCalendar();
 
   $: selectedWeek = Math.floor((selectedDay + daysOffset) / 7);
 
   $: day, month, year && searchWeek();
 
   function searchWeek() {
-    if (day && month && year) {
-      let selectedDate = `${year}-${month}-${day}`;
-
-      if ($configStore.profile && selectedDate) {
-        let newDate = selectedDate.split("-").reverse().join("-");
-        configStore.update((state) => {
-          console.log($configStore.profile, selectedDate);
-          new URL($configStore.profile).searchParams.forEach((value, key) => {
-            if (key == "date") {
-              state.profile = $configStore.profile.replace(value, newDate);
-            }
-          });
-          return state;
-        });
-      }
+    if (
+      day > nOfDays ||
+      day < 1 ||
+      month > 12 ||
+      month < 1 ||
+      year < 1 ||
+      isNaN(day) ||
+      isNaN(month) ||
+      isNaN(year)
+    ) {
+      return;
     }
+
+    let selectedDate = `${year}-${month}-${day}`;
+
+    if ($configStore.profile && selectedDate) {
+      let newDate = selectedDate.split("-").reverse().join("-");
+
+      configStore.update((state) => {
+        const searchParams = new URL($configStore.profile).searchParams;
+
+        searchParams.forEach((value, key) => {
+          if (key == "date") {
+            state.profile = $configStore.profile.replace(value, newDate);
+          }
+        });
+        return state;
+      });
+    }
+  }
+
+  function updateCalendar() {
+    if (
+      day > nOfDays ||
+      day < 1 ||
+      month > 12 ||
+      month < 1 ||
+      year < 1 ||
+      isNaN(day) ||
+      isNaN(month) ||
+      isNaN(year)
+    ) {
+      return;
+    }
+
+    nOfDays = getNumberOfDays(month, year);
+    daysOffset = new Date(year, month - 1, 1).getDay();
   }
 </script>
 
@@ -95,78 +125,70 @@
       maxlength="4"
     />
   </div>
-  <button class="icon" on:click={() => (fullView = !fullView)}></button>
+  <button class="icon"></button>
 </div>
 
-{#if fullView}
-  <div
-    class="fullView"
-    in:fly={{ y: -100 }}
-    out:fly={{ y: -100 }}
-    on:mouseleave={() => (fullView = false)}
-  >
-    <div class="header">
-      <div class="monthYearSelector-container">
-        <button
-          class={`monthSelector ${monthDropdownOpen ? "open" : ""}`}
-          on:click={() => (monthDropdownOpen = !monthDropdownOpen)}
-        >
-          {months[month - 1]}
-        </button>
-        {#if monthDropdownOpen}
-          <div class="monthDropdown">
-            {#each months as m, i}
-              <button
-                class="month"
-                on:click={() => {
-                  month = i + 1;
-                  monthDropdownOpen = false;
-                }}
-              >
-                {m}
-              </button>
-            {/each}
-          </div>
-        {/if}
-      </div>
-    </div>
-    <div class="calendar">
-      <div class="weekdays">
-        <div class="weekday">Dom</div>
-        <div class="weekday">Lun</div>
-        <div class="weekday">Mar</div>
-        <div class="weekday">Mer</div>
-        <div class="weekday">Gio</div>
-        <div class="weekday">Ven</div>
-        <div class="weekday">Sab</div>
-      </div>
-      <div class="weekSelector" style={`top: ${selectedWeek * 75 + 42}px`} />
-      <div class="days">
-        {#if daysOffset > 0}
-          {#each Array(daysOffset) as _}
-            <div class="day" />
+<div class="fullView">
+  <div class="header">
+    <div class="monthYearSelector-container">
+      <button
+        class={`monthSelector ${monthDropdownOpen ? "open" : ""}`}
+        on:click={() => (monthDropdownOpen = !monthDropdownOpen)}
+      >
+        {months[month - 1] || "Mese"}
+      </button>
+      {#if monthDropdownOpen}
+        <div class="monthDropdown" in:fly={{ y: -50 }} out:fly={{ y: -50 }}>
+          {#each months as m, i}
+            <button
+              class="month"
+              on:click={() => {
+                month = i + 1;
+                monthDropdownOpen = false;
+              }}
+            >
+              {m}
+            </button>
           {/each}
-        {/if}
-
-        <!-- I wrote this while drunk i'm so sorry -->
-        {#each Array(nOfDays) as _, i}
-          <button
-            on:mouseenter={() => (selectedDay = i)}
-            on:click={() => {
-              day = i + 1;
-              fullView = false;
-            }}
-            class={`day ${
-              i >= nOfDays - ((nOfDays + daysOffset) % 7) ? " last" : ""
-            }`}
-          >
-            {i + 1}
-          </button>
-        {/each}
-      </div>
+        </div>
+      {/if}
     </div>
   </div>
-{/if}
+  <div class="calendar">
+    <div class="weekdays">
+      <div class="weekday">Dom</div>
+      <div class="weekday">Lun</div>
+      <div class="weekday">Mar</div>
+      <div class="weekday">Mer</div>
+      <div class="weekday">Gio</div>
+      <div class="weekday">Ven</div>
+      <div class="weekday">Sab</div>
+    </div>
+    <div class="weekSelector" style={`top: ${selectedWeek * 75 + 53}px`} />
+    <div class="days">
+      {#if daysOffset > 0}
+        {#each Array(daysOffset) as _}
+          <div class="day" />
+        {/each}
+      {/if}
+
+      <!-- I wrote this while drunk i'm so sorry -->
+      {#each Array(nOfDays) as _, i}
+        <button
+          on:mouseenter={() => (selectedDay = i)}
+          on:click={() => {
+            day = i + 1;
+          }}
+          class={`day ${
+            i >= nOfDays - ((nOfDays + daysOffset) % 7) ? " last" : ""
+          }`}
+        >
+          {i + 1}
+        </button>
+      {/each}
+    </div>
+  </div>
+</div>
 
 <style lang="scss">
   @import "./calendarPicker.scss";

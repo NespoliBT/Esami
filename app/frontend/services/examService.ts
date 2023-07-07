@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export module examsService {
+export module examService {
   export function get(id: number) {
     return new Promise((resolve, reject) => {
       axios
@@ -19,7 +19,18 @@ export module examsService {
           name: exam.name,
           value: exam.value,
         })
-        .then(({ data }) => resolve(data.value))
+        .then(({ data }) => resolve(data))
+        .catch((error) => reject(error));
+    });
+  }
+
+  export function metaSet(metas) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post("/exam/meta/set", {
+          metas,
+        })
+        .then(({ data }) => resolve(data))
         .catch((error) => reject(error));
     });
   }

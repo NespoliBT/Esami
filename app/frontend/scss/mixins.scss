@@ -29,3 +29,82 @@
         scale: 1.02;
     }
 }
+
+@mixin closeButton {
+    transition: .2s;
+    position: absolute;
+    top: 70px;
+    right: 70px;
+    height: 70px;
+    width: 70px;
+    background-color: var(--color_5);
+    font-family: NerdFont;
+    font-size: 3rem;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 20px -5px #00000033;
+
+    &:hover {
+        scale: 1.05;
+    }
+}
+
+@mixin popup-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(2px);
+    padding: 32px;
+}
+
+@mixin popup {
+    height: 100%;
+    width: 100%;
+    background-color: var(--color_2);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+}
+
+@mixin deleteButton {
+    transition: .2s;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: var(--color_1);
+    cursor: pointer;
+    background-color: var(--color_5);
+    width: fit-content;
+    padding: 8px 16px;
+    border-radius: 8px;
+    align-self: end;
+
+    &:hover,
+    &:focus {
+        scale: 1.05;
+    }
+}
+
+@mixin newButton {
+    transition: .2s;
+    width: 536px;
+    border-radius: 16px;
+    border: 2px dashed var(--color_4);
+    padding: 12px;
+    font-size: 3rem;
+    text-align: center;
+    font-family: NerdFont;
+    cursor: pointer;
+    background-color: transparent;
+
+    &:hover {
+        scale: 1.02;
+    }
+}

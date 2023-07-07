@@ -13,6 +13,7 @@
     box-shadow: 0 0 20px -5px #00000033;
     transition: .2s;
     cursor: pointer;
+    height: fit-content;
 
     &:hover {
         box-shadow: 0 0 0 3px var(--color_4);
@@ -108,6 +109,54 @@
 
         .keep {
             background-color: var(--color_6);
+        }
+    }
+}
+
+.fullView-container {
+    @include popup-container;
+
+    .fullView {
+        @include popup;
+
+        .close {
+            @include closeButton;
+        }
+
+        .title {
+            @include title;
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+            .subtitle {
+                @include subtitle;
+                color: var(--color_4);
+            }
+
+            .link {
+                transition: .2s;
+                font-size: 1.5rem;
+                text-decoration: none;
+                background-color: var(--color_4);
+                color: var(--color_2);
+                padding: 16px 32px;
+                border-radius: 16px;
+                width: fit-content;
+                cursor: pointer;
+
+                &:before {
+                    font-family: NerdFont;
+                    content: " "
+                }
+
+                &:hover {
+                    scale: 1.05;
+                }
+            }
         }
     }
 }

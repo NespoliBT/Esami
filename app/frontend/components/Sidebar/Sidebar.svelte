@@ -7,10 +7,10 @@
   import { fly } from "svelte/transition";
   import CalendarPicker from "@components/CalendarPicker/CalendarPicker.svelte";
 
-  export let open = false; // ! TODO setting true does nothing?
+  export let open = false;
   export let selectedDate;
 
-  let newExamFormOpen = false;
+  let newExamFormOpen = true; // ! TODO set to false
   let section = $sectionStore.section;
 
   sectionStore.subscribe(() => {

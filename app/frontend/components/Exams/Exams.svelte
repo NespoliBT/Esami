@@ -1,11 +1,11 @@
 <script lang="ts">
   import Exam from "@components/Exam/Exam.svelte";
-  import { examsService } from "app/frontend/services/examsService";
+  import { examService } from "app/frontend/services/examService";
   import { fly } from "svelte/transition";
 
   let exams = [];
 
-  examsService.getAll().then((data: []) => (exams = data));
+  examService.getAll().then((data: []) => (exams = data));
 </script>
 
 <div class="exams" in:fly={{ x: -200 }} out:fly={{ x: 200 }}>

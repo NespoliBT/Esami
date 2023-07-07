@@ -51,7 +51,8 @@ function runMigrations(db: Database) {
       exam_id     INTEGER,
 
       name        TEXT,
-      value       TEXT
+      value       TEXT,
+      type        TEXT
     )
   `);
 
