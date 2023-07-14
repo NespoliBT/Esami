@@ -2,4 +2,21 @@
 
 .settings {
     position: absolute;
+    display: flex;
+    flex-direction: column;
+
+    .title {
+        @include title;
+    }
+
+    .subtitle {
+        @include subtitle;
+        color: var(--color_4);
+        margin-top: 32px;
+    }
+
+    .switchTheme,
+    .switchProfile {
+        @include externalButton;
+    }
 }

@@ -30,6 +30,23 @@
     }
 }
 
+@mixin smallButton($color: var(--color_4)) {
+    transition: .2s;
+    background-color: $color;
+    color: var(--color_1);
+    padding: 8px 16px;
+    text-align: center;
+    font-size: 1.5em;
+    border-radius: 8px;
+    box-shadow: 0 0 20px -5px #00000033;
+    cursor: pointer;
+    width: fit-content;
+
+    &:hover {
+        scale: 1.02;
+    }
+}
+
 @mixin closeButton {
     transition: .2s;
     position: absolute;
@@ -75,16 +92,16 @@
 
 @mixin deleteButton {
     transition: .2s;
-    display: flex;
+    display: grid;
     align-items: center;
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: var(--color_1);
     cursor: pointer;
     background-color: var(--color_5);
-    width: fit-content;
-    padding: 8px 16px;
     border-radius: 8px;
-    align-self: end;
+    font-family: NerdFont;
+    height: 32px;
+    width: 32px;
 
     &:hover,
     &:focus {
@@ -98,7 +115,7 @@
     border-radius: 16px;
     border: 2px dashed var(--color_4);
     padding: 12px;
-    font-size: 3rem;
+    font-size: 2.5rem;
     text-align: center;
     font-family: NerdFont;
     cursor: pointer;
@@ -106,5 +123,62 @@
 
     &:hover {
         scale: 1.02;
+    }
+}
+
+@mixin textInput {
+    background-color: var(--color_1);
+    padding: 16px 24px;
+    font-size: 1rem;
+    flex: 1 1;
+    border-radius: 16px;
+}
+
+@mixin externalButton ($color: var(--color_4)) {
+    transition: .2s;
+    font-size: 1.5rem;
+    text-decoration: none;
+    background-color: $color;
+    color: var(--color_1);
+    padding: 16px 32px;
+    border-radius: 16px;
+    width: fit-content;
+    cursor: pointer;
+
+    &:before {
+        font-family: NerdFont;
+    }
+
+    &.document:before {
+        content: "󰈔 "
+    }
+
+    &.link:before {
+        content: "󰌷 ";
+    }
+
+    &:hover {
+        scale: 1.05;
+    }
+}
+
+@mixin checkbox {
+    height: 32px;
+    aspect-ratio: 1;
+    background-color: transparent;
+    border-radius: 8px;
+    border: 2px solid var(--color_6);
+    cursor: pointer;
+
+    &.check {
+        &::after {
+            content: "";
+            font-family: NerdFont;
+            font-size: 3rem;
+            position: relative;
+            bottom: 19px;
+            left: 4px;
+            color: var(--color_6);
+        }
     }
 }

@@ -4,6 +4,7 @@
   import Sidebar from "@components/Sidebar/Sidebar.svelte";
   import { sectionStore } from "app/frontend/stores";
   import Exams from "@components/Exams/Exams.svelte";
+  import Settings from "@components/Settings/Settings.svelte";
 
   let sidebarStatus = false;
 
@@ -19,7 +20,7 @@
       {:else if $sectionStore.section == "calendar"}
         <Calendar {selectedDate} />
       {:else if $sectionStore.section == "settings"}
-        settings
+        <Settings />
       {/if}
     </div>
   </div>

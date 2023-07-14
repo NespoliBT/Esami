@@ -19,7 +19,6 @@
     if ($configStore.profile && selectedDate) {
       let newDate = selectedDate.split("-").reverse().join("-");
       configStore.update((state) => {
-        console.log($configStore.profile, selectedDate);
         new URL($configStore.profile).searchParams.forEach((value, key) => {
           if (key == "date") {
             state.profile = $configStore.profile.replace(value, newDate);
@@ -46,8 +45,6 @@
       lectureObj.celle.forEach((lecture: any) => {
         let today = new Date();
         let date = new Date(lecture.data.split("-").reverse().join("/"));
-
-        console.log(date.getDate(), today.getDate());
 
         if (lecture.nome_insegnamento) {
           if (date < today) {

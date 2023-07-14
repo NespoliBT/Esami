@@ -16,7 +16,7 @@
 
 :global(html[data-theme='light']) {
   --color_1: #ebe9dd;
-  --color_2: #ebe8de;
+  --color_2: #fffcf1;
   --color_3: #dd83a0;
   --color_4: #63aec0;
   --color_5: #e25987;
@@ -24,6 +24,10 @@
   --color_7: #b877b4;
   --color_8: #fec262;
   --color_9: #221f1f;
+}
+
+:global(html[data-theme='rgb']) {
+  animation: rgb 1.5s infinite linear;
 }
 
 @font-face {

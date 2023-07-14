@@ -15,11 +15,11 @@ export module examController {
   }
 
   export function set(req, res) {
-    let { name, value, id } = req.body;
+    let { name, value, id, grade } = req.body;
 
     if (!id) {
       id = examService.set(name, value);
-    } else examService.set(name, value, id);
+    } else examService.set(name, value, id, grade);
     res.status(200).json({ message: "Exam saved", id });
   }
 

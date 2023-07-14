@@ -6,11 +6,12 @@
   import Settings from "@components/Settings/Settings.svelte";
   import { fly } from "svelte/transition";
   import CalendarPicker from "@components/CalendarPicker/CalendarPicker.svelte";
+  import SettingsSide from "@components/SettingsSide/SettingsSide.svelte";
 
   export let open = false;
   export let selectedDate;
 
-  let newExamFormOpen = true; // ! TODO set to false
+  let newExamFormOpen = false;
   let section = $sectionStore.section;
 
   sectionStore.subscribe(() => {
@@ -33,7 +34,7 @@
   {:else if section == "exams"}
     <ExamsSide bind:openForm={newExamFormOpen} />
   {:else if section == "settings"}
-    <Settings />
+    <SettingsSide />
   {/if}
   <Selector />
 </div>
@@ -45,7 +46,7 @@
       open = !open;
     }}
   >
-    
+    󰍜
   </button>
 </div>
 

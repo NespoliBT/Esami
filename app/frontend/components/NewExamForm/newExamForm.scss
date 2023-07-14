@@ -20,155 +20,174 @@
             height: calc(100% - 128px);
             gap: 32px;
             padding: 32px;
-            justify-content: space-between;
             position: relative;
 
-            .content {
+            .name-cfu {
                 display: flex;
+                gap: 16px;
+                width: fit-content;
+
+                input[type="text"] {
+                    background-color: var(--color_1);
+                    padding: 16px 32px;
+                    font-size: 24px;
+                    border-radius: 8px;
+                    width: 400px;
+
+                    &.cfu {
+                        width: 120px;
+                        text-align: center
+                    }
+                }
+
+            }
+
+            .content {
+                display: grid;
                 height: inherit;
                 overflow-y: scroll;
+                gap: 32px;
+                grid-template-areas:
+                    "links documents todo";
 
-                .subtitle {
-                    @include subtitle;
-                    margin: 0;
-                    color: var(--color_4);
+                .links,
+                .documents,
+                .todo {
+                    .subtitle {
+                        @include subtitle;
+                        margin: 0;
+                        color: var(--color_4);
+                    }
+
+                    .newButton {
+                        @include newButton;
+                    }
                 }
 
-                .left {
-                    flex: 1 1;
+
+                .links {
+                    grid-area: links;
                     display: flex;
                     flex-direction: column;
-                    gap: 32px;
-                    padding-top: 32px;
-                    height: fit-content;
-                    min-height: -webkit-fill-available;
+                    gap: 16px;
+                    width: fit-content;
+                    margin: 0 auto;
 
-                    .name-cfu {
-                        display: flex;
-                        gap: 16px;
-                        width: fit-content;
-                        margin: 0 auto;
-
-                        input[type="text"] {
-                            background-color: var(--color_1);
-                            padding: 16px 32px;
-                            font-size: 24px;
-                            border-radius: 8px;
-                            width: 400px;
-
-                            &.cfu {
-                                width: 120px;
-                                text-align: center
-                            }
-                        }
-
-                    }
-
-                    .links {
+                    .link {
                         display: flex;
                         flex-direction: column;
                         gap: 16px;
-                        width: fit-content;
-                        margin: 0 auto;
+                        padding-bottom: 16px;
+                        width: 536px;
+                        position: relative;
+                        border-bottom: 2px dashed var(--color_7);
 
-                        .link {
-                            display: flex;
-                            flex-direction: column;
-                            gap: 16px;
-                            padding-bottom: 16px;
-                            width: 536px;
-                            position: relative;
-                            border-bottom: 2px dashed var(--color_7);
-
-                            &:last-of-type {
-                                border: 0;
-                            }
-
-                            .linkTitle,
-                            .linkValue {
-                                background-color: var(--color_1);
-                                padding: 16px 24px;
-                                font-size: 1rem;
-                                flex: 1 1;
-                                border-radius: 16px;
-                            }
-
-                            .delete {
-                                @include deleteButton;
-                            }
+                        &:last-of-type {
+                            border: 0;
                         }
 
-                        .newLink {
-                            @include newButton;
+                        .linkTitle,
+                        .linkValue {
+                            @include textInput;
+                        }
+
+                        .delete {
+                            @include deleteButton;
+                            align-self: end;
                         }
                     }
                 }
 
-                .right {
-                    flex: 1 1;
-                    padding-top: 32px;
+                .documents {
+                    grid-area: documents;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                    width: fit-content;
+                    margin: 0 auto;
 
-                    .documents {
+                    .document {
                         display: flex;
-                        flex-direction: column;
                         gap: 16px;
-                        width: fit-content;
-                        margin: 0 auto;
-                    }
+                        align-items: center;
 
+                        .delete {
+                            @include deleteButton;
+                        }
+
+                        .editFile {
+                            transition: .2s;
+                            font-family: NerdFont;
+                            background-color: var(--color_6);
+                            color: var(--color_1);
+                            height: 32px;
+                            width: 32px;
+                            display: grid;
+                            place-items: center;
+                            font-size: 1.2rem;
+                            border-radius: 8px;
+                            cursor: pointer;
+
+                            &:hover {
+                                scale: 1.05;
+                            }
+                        }
+
+                        .fileName {
+                            @include textInput;
+                        }
+                    }
+                }
+
+                .todo {
+                    grid-area: todo;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                    width: fit-content;
+                    margin: 0 auto;
+
+
+                    .todoItem {
+                        display: flex;
+                        align-items: center;
+                        gap: 16px;
+
+                        .delete {
+                            @include deleteButton;
+                        }
+
+                        .todoCheck {
+                            @include checkbox;
+                        }
+
+                        .todoText {
+                            @include textInput;
+                        }
+                    }
+                }
+
+                @media screen and (max-width: 1900px) {
+                    grid-template-areas:
+                        "links documents"
+                        "links todo";
+                }
+
+                @media screen and (max-width: 1337px) {
+                    grid-template-areas:
+                        "links"
+                        "documents"
+                        "todo";
+
+                    .links,
+                    .documents,
                     .todo {
-                        display: flex;
-                        flex-direction: column;
-                        gap: 16px;
-                        width: fit-content;
-                        margin: 0 auto;
+                        width: 100%;
 
-
-                        .todoItem {
-                            display: flex;
-                            align-items: center;
-                            gap: 16px;
-
-                            .delete {
-                                @include deleteButton;
-                                align-self: unset;
-                            }
-
-                            .todoCheck {
-                                height: 32px;
-                                aspect-ratio: 1;
-                                background-color: transparent;
-                                border-radius: 8px;
-                                border: 2px solid var(--color_6);
-                                cursor: pointer;
-
-                                &.check {
-                                    &::after {
-                                        content: "";
-                                        font-family: NerdFont;
-                                        font-size: 4rem;
-                                        position: relative;
-                                        bottom: 23px;
-                                        left: 3px;
-                                        color: var(--color_6);
-                                    }
-                                }
-                            }
-
-                            .todoText {
-                                background-color: var(--color_1);
-                                padding: 16px 24px;
-                                font-size: 1rem;
-                                flex: 1 1;
-                                border-radius: 16px;
-                            }
-                        }
-
-                        .newTodo {
-                            @include newButton;
+                        .newButton {
+                            width: 100%;
                         }
                     }
-
                 }
             }
 

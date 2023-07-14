@@ -40,7 +40,8 @@ function runMigrations(db: Database) {
     id             INTEGER PRIMARY KEY AUTOINCREMENT,
 
     name           TEXT,
-    value          TEXT
+    value          TEXT,
+    grade          INTEGER
   )
 `);
 

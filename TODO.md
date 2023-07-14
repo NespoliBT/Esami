@@ -1,1 +1,10 @@
 - lezioni annullate
+- update checkbox todo subito [teoricamente fatto]
+- edit esame [sembra funzionare ???!]
+- invio su voto <-- ??? non ha senso
+- service esami usare gli store (per automatizzare il delete e l'insert)
+- CFU in settings
+- titolo migliore per cfu in settings
+- grafici media e cfu
+- tema personalizzato
+- suggetsions esami

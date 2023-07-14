@@ -14,6 +14,7 @@ $width: 630px;
     z-index: 10;
     transform: translateX(-$width);
     transition: .4s;
+    overflow: hidden;
 
     &.opened {
         transform: translateX(0);
@@ -46,7 +47,7 @@ $width: 630px;
         font-family: NerdFont;
         transform: scale(1.1);
         cursor: pointer;
-        font-size: 48px;
+        font-size: 2.5rem;
         height: 45px;
         width: 45px;
         padding: 5px;

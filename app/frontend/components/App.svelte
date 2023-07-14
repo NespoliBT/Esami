@@ -1,10 +1,11 @@
-<script>
+<script lang="ts">
   import { configService } from "app/frontend/services/configService";
   import { configStore } from "../stores";
   import Updater from "@components/Updater/Updater.svelte";
   import Welcome from "@components/Welcome/Welcome.svelte";
   import Main from "@components/Main/Main.svelte";
   import axios from "axios";
+  import { onMount } from "svelte";
 
   axios.defaults.baseURL = "http://localhost:41968";
 
@@ -29,6 +30,17 @@
       }
 
       return state;
+    });
+  });
+
+  onMount(() => {
+    configService.get("theme").then((data: string) => {
+      configStore.update((state) => {
+        state.theme = data;
+
+        return state;
+      });
+      document.querySelector("html")?.setAttribute("data-theme", data);
     });
   });
 </script>

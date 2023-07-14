@@ -1,6 +1,6 @@
 import path from "path";
 import url from "url";
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, dialog } from "electron";
 import { autoUpdater } from "electron-updater";
 import { runServer } from "./server";
 require("dotenv").config();
@@ -52,24 +52,34 @@ function launch() {
   });
 }
 
+ipcMain.on("openFile", (e, i) => {
+  const name = dialog.showOpenDialogSync({ properties: ["openFile"] })[0];
+  win.webContents.send("fileName", { name, i });
+});
+
 ipcMain.on("setup", (event, arg) => {
   win2 = new BrowserWindow({
     width: 800,
     height: 600,
   });
 
-  win2.loadURL("https://gestioneorari.didattica.unimib.it/PortaleStudentiUnimib/index.php?view=easycourse&_lang=it&include=corso");
+  win2.loadURL(
+    "https://gestioneorari.didattica.unimib.it/PortaleStudentiUnimib/index.php?view=easycourse&_lang=it&include=corso"
+  );
 
   win2.on("page-title-updated", function (event) {
     let currentURL = win2.webContents.getURL();
 
-    let url = new URL(currentURL)
+    let url = new URL(currentURL);
     if (new URLSearchParams(url.search).has("form-type")) {
-      win.webContents.send("urlinfo", currentURL.substring(0, currentURL.length - 1));
+      win.webContents.send(
+        "urlinfo",
+        currentURL.substring(0, currentURL.length - 1)
+      );
 
       win2.close();
     }
-  })
+  });
 });
 
 // Mac stuff I'd rather not know about

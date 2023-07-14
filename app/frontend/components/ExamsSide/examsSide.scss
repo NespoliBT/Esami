@@ -15,4 +15,13 @@
     .new {
         @include button;
     }
+
+    .average {
+        margin-top: 32px;
+
+        .subtitle {
+            @include subtitle;
+            color: var(--color_4);
+        }
+    }
 }

@@ -27,3 +27,29 @@
     transform: rotate(360deg);
   }
 }
+
+@keyframes close-container {
+  to {
+    clip: rect(auto, auto, auto, auto);
+  }
+}
+
+@keyframes right-spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(180deg);
+  }
+}
+
+@keyframes rgb {
+  from {
+    filter: hue-rotate(0);
+  }
+
+  to {
+    filter: hue-rotate(360deg);
+  }
+}

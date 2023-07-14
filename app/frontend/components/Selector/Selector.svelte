@@ -10,7 +10,7 @@
       section: "exams",
     },
     {
-      icon: "",
+      icon: "",
       section: "calendar",
     },
     {
@@ -23,8 +23,6 @@
     const barWidth = document.querySelector(".selector").clientWidth;
     const iconWidth = document.querySelector(".icon").clientWidth;
     const bubbleWidth = document.querySelector(".bubble").clientWidth;
-
-    console.log(barWidth, iconWidth, barWidth - 3 * iconWidth);
 
     bubbleLeft =
       ((barWidth - 3 * iconWidth) / 3 + iconWidth) * i +

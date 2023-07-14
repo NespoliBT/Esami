@@ -16,8 +16,10 @@ export module examService {
     return new Promise((resolve, reject) => {
       axios
         .post("/exam/set", {
+          id: exam.id || null,
           name: exam.name,
           value: exam.value,
+          grade: exam.grade,
         })
         .then(({ data }) => resolve(data))
         .catch((error) => reject(error));
