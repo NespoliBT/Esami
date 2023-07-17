@@ -1,6 +1,6 @@
 {
   "name": "esami",
-  "version": "v1.0.0",
+  "version": "v1.0.1",
   "main": "public/build/main.js",
   "scripts": {
     "start": "cross-env MODE=dev electron .",

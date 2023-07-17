@@ -1,4 +1,5 @@
 import axios from "axios";
+import { examStore } from "../stores";
 
 export module examService {
   export function get(id: number) {
@@ -48,6 +49,14 @@ export module examService {
 
   export function remove(id: number) {
     return new Promise((resolve, reject) => {
+      examStore.update((state) => {
+        state.exams = state.exams.filter((ex) => {
+          return ex.id != id;
+        });
+
+        return state;
+      });
+
       axios
         .post("/exam/remove", {
           id: id,

@@ -30,10 +30,11 @@ export module examService {
   export function set(name, value, id = null, grade = null) {
     if (id) {
       db.prepare(
-        "UPDATE exams SET value = @value, grade = @grade WHERE id = @id"
+        "UPDATE exams SET name = @name, value = @value, grade = @grade WHERE id = @id"
       ).run({
         id: id,
         value,
+        name,
         grade,
       });
 

@@ -12,14 +12,16 @@
     <button
       class="telegram"
       on:click={() => shell.openExternal("https://t.me/nespoli")}
-      >Telegram</button
-    > <br />
+    >
+      Telegram
+    </button> <br />
     Il codice è accessibile qui: <br />
     <button
       class="github"
       on:click={() => shell.openExternal("https://github.com/NespoliBT/esami")}
-      >Github</button
     >
+      GitHub
+    </button>
   </div>
 </div>
 

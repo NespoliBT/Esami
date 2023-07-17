@@ -63,10 +63,13 @@
   function submitForm(e) {
     e.preventDefault();
 
+    console.log(examName, credits);
+
     examService
       .set({
         name: examName,
         value: credits,
+        grade: exam?.grade,
         id: exam?.id,
       })
       .then((data: { id: number }) => {

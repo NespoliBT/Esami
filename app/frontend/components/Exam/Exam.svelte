@@ -3,13 +3,13 @@
   import { scale, fly } from "svelte/transition";
   import { shell } from "electron";
   import NewExamForm from "@components/NewExamForm/NewExamForm.svelte";
+  import { examStore } from "app/frontend/stores";
 
   export let exam;
 
   let fullView = false;
 
   let deletePopupOpen = false;
-  let deleted = false;
 
   let editing = false;
 
@@ -33,7 +33,6 @@
 
   function remove() {
     examService.remove(exam.id);
-    deleted = true;
     deletePopupOpen = false;
   }
 
@@ -42,6 +41,17 @@
     exam.grade = grade;
 
     examService.set(exam);
+
+    examStore.update((state) => {
+      state.exams = state.exams.map((ex) => {
+        if (ex.id == exam.id) {
+          ex.grade = exam.grade;
+        }
+        return ex;
+      });
+
+      return state;
+    });
 
     completePopupOpen = false;
   }
@@ -55,31 +65,28 @@
   });
 </script>
 
-{#if !deleted}
-  <button
-    class={`exam ${completed ? "completed" : ""}`}
-    in:scale
-    out:scale
-    on:click={(e) => (fullView = true)}
-  >
-    <div class="title">{exam.name}</div>
-    <div class="tools">
-      <button
-        class="delete"
-        on:click|stopPropagation={() => (deletePopupOpen = true)}
-        >Elimina</button
-      >
-      <button
-        class="clear"
-        on:click|stopPropagation={() => (completePopupOpen = true)}
-        >Completa</button
-      >
-      {#if exam.grade != 0 && exam.grade != null}
-        <div class="grade">Voto: {exam.grade}</div>
-      {/if}
-    </div>
-  </button>
-{/if}
+<button
+  class={`exam ${completed ? "completed" : ""}`}
+  in:scale
+  out:scale
+  on:click={(e) => (fullView = true)}
+>
+  <div class="title">{exam.name}</div>
+  <div class="tools">
+    <button
+      class="delete"
+      on:click|stopPropagation={() => (deletePopupOpen = true)}>Elimina</button
+    >
+    <button
+      class="clear"
+      on:click|stopPropagation={() => (completePopupOpen = true)}
+      >Completa</button
+    >
+    {#if exam.grade != 0 && exam.grade != null}
+      <div class="grade">Voto: {exam.grade}</div>
+    {/if}
+  </div>
+</button>
 
 {#if deletePopupOpen}
   <div class="deletePopup-container" in:scale out:scale>
@@ -110,13 +117,15 @@
           placeholder="voto"
           value={exam.grade || ""}
         />
+        <input class="complete" type="submit" value="Salva" />
         <button
           class="close"
           on:click|preventDefault={(e) => {
+            console.log(e);
+
             if (e.screenX != 0) completePopupOpen = false;
           }}>Chiudi</button
         >
-        <input class="complete" type="submit" value="Salva" />
       </form>
     </div>
   </div>

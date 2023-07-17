@@ -29,7 +29,7 @@
 </script>
 
 <div class="settings" in:fly={{ x: -200 }} out:fly={{ x: 200 }}>
-  <div class="title">Impostazioni</div>
+  <div class="title">Pannello di controllo</div>
 
   <div class="subtitle">Profilo</div>
   <button class="switchProfile" on:click={() => bridgeService.message("setup")}
