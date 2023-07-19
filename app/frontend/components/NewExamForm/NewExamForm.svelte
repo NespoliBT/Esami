@@ -16,8 +16,6 @@
 
   let editing = exam != null;
 
-  console.log(editing);
-
   let examName = exam?.name || "";
   let credits = exam?.value || "";
 
@@ -62,8 +60,6 @@
 
   function submitForm(e) {
     e.preventDefault();
-
-    console.log(examName, credits);
 
     examService
       .set({

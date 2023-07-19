@@ -1,33 +1,34 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
   import { configStore } from "app/frontend/stores";
+  import Dropdown from "@components/Dropdown/Dropdown.svelte";
 
   const now = new Date();
   let day = now.getDate();
-  let month = now.getMonth() + 1;
+  let monthIndex = now.getMonth() + 1;
   let year = now.getFullYear();
 
   let selectedDay = null;
-
-  let monthDropdownOpen = false;
 
   let nOfDays;
   let daysOffset;
 
   const months = [
-    "Gennaio",
-    "Febbraio",
-    "Marzo",
-    "Aprile",
-    "Maggio",
-    "Giugno",
-    "Luglio",
-    "Agosto",
-    "Settembre",
-    "Ottobre",
-    "Novembre",
-    "Dicembre",
+    { name: "Gennaio", value: 1 },
+    { name: "Febbraio", value: 2 },
+    { name: "Marzo", value: 3 },
+    { name: "Aprile", value: 4 },
+    { name: "Maggio", value: 5 },
+    { name: "Giugno", value: 6 },
+    { name: "Luglio", value: 7 },
+    { name: "Agosto", value: 8 },
+    { name: "Settembre", value: 9 },
+    { name: "Ottobre", value: 10 },
+    { name: "Novembre", value: 11 },
+    { name: "Dicembre", value: 12 },
   ];
+
+  let month = months[now.getMonth()];
 
   function getNumberOfDays(month, year) {
     // Array containing the number of days in each month (in a non-leap year)
@@ -41,7 +42,7 @@
       daysInMonth[1] = 29;
     }
     // Return the number of days for the given month
-    return daysInMonth[month - 1];
+    return daysInMonth[month.value - 1];
   }
 
   $: month, year && updateCalendar();
@@ -50,21 +51,23 @@
 
   $: day, month, year && searchWeek();
 
+  $: monthIndex, (month = months[monthIndex - 1]);
+
   function searchWeek() {
     if (
       day > nOfDays ||
       day < 1 ||
-      month > 12 ||
-      month < 1 ||
+      month?.value > 12 ||
+      month?.value < 1 ||
       year < 1 ||
       isNaN(day) ||
-      isNaN(month) ||
+      isNaN(month?.value) ||
       isNaN(year)
     ) {
       return;
     }
 
-    let selectedDate = `${year}-${month}-${day}`;
+    let selectedDate = `${year}-${month.value}-${day}`;
 
     if ($configStore.profile && selectedDate) {
       let newDate = selectedDate.split("-").reverse().join("-");
@@ -86,18 +89,18 @@
     if (
       day > nOfDays ||
       day < 1 ||
-      month > 12 ||
-      month < 1 ||
+      month?.value > 12 ||
+      month?.value < 1 ||
       year < 1 ||
       isNaN(day) ||
-      isNaN(month) ||
+      isNaN(month?.value) ||
       isNaN(year)
     ) {
       return;
     }
 
     nOfDays = getNumberOfDays(month, year);
-    daysOffset = new Date(year, month - 1, 1).getDay();
+    daysOffset = new Date(year, month.value - 1, 1).getDay();
   }
 </script>
 
@@ -114,7 +117,7 @@
       type="text"
       class="month"
       placeholder="00"
-      bind:value={month}
+      bind:value={monthIndex}
       maxlength="2"
     />/
     <input
@@ -130,29 +133,11 @@
 
 <div class="fullView">
   <div class="header">
-    <div class="monthYearSelector-container">
-      <button
-        class={`monthSelector ${monthDropdownOpen ? "open" : ""}`}
-        on:click={() => (monthDropdownOpen = !monthDropdownOpen)}
-      >
-        {months[month - 1] || "Mese"}
-      </button>
-      {#if monthDropdownOpen}
-        <div class="monthDropdown" in:fly={{ y: -50 }} out:fly={{ y: -50 }}>
-          {#each months as m, i}
-            <button
-              class="month"
-              on:click={() => {
-                month = i + 1;
-                monthDropdownOpen = false;
-              }}
-            >
-              {m}
-            </button>
-          {/each}
-        </div>
-      {/if}
-    </div>
+    <Dropdown
+      list={months}
+      bind:current={month}
+      change={() => (monthIndex = months.indexOf(month) + 1)}
+    />
   </div>
   <div class="calendar">
     <div class="weekdays">

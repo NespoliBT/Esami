@@ -47,7 +47,6 @@
 
   onMount(() => {
     configService.get("theme").then((data: string) => {
-      console.log(data);
       const theme = JSON.parse(data);
 
       configStore.update((state) => {

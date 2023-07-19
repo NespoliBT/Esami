@@ -38,7 +38,6 @@
   >
 
   <div class="subtitle">Tema</div>
-  <button class="switchTheme" on:click={changeTheme}>Cambia tema</button>
   <Dropdown list={themes} bind:current={theme} change={changeTheme} />
 
   <div class="subtitle">CFU Massimi</div>

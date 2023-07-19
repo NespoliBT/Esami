@@ -13,7 +13,7 @@ export const configStore: Writable<{
 export const sectionStore: Writable<{
   section: string;
 }> = writable({
-  section: "settings", // ! CAMBIARE IN exams
+  section: "exams",
 });
 
 export const examStore: Writable<{

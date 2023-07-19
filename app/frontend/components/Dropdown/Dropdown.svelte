@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
 
-  export let list: { name: string; value: string }[] = null;
+  export let list: { name: string; value: any }[] = null;
   export let current = null;
   export let change = () => {};
 
@@ -16,14 +16,14 @@
   }
 
   $: currentIndex = list.findIndex(
-    (item) => item.name === current.name && item.value === current.value
+    (item) => item.name === current?.name && item.value === current?.value
   );
 </script>
 
 <div class="dropdown">
   <div class="themeSelector-container">
     <button class="openDropdown" on:click={() => (open = !open)}>
-      {current.name}
+      {current?.name || ""}
     </button>
     {#if open}
       <div class="dropdown" in:fly={{ y: -50 }} out:fly={{ y: -50 }}>
