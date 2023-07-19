@@ -1,26 +1,27 @@
 <script lang="ts">
+  import Dropdown from "@components/Dropdown/Dropdown.svelte";
   import { bridgeService } from "app/frontend/services/bridgeService";
   import { configService } from "app/frontend/services/configService";
   import { configStore } from "app/frontend/stores";
   import { ipcRenderer } from "electron";
   import { fly } from "svelte/transition";
 
-  let theme = "dark";
+  let themes = [
+    { name: "Scuro", value: "dark" },
+    { name: "Chiaro", value: "light" },
+    { name: "RGB", value: "rgb" },
+  ];
 
-  let themes = ["dark", "light", "rgb"];
+  let theme = themes[0];
+
+  configService.get("theme").then((t: string) => {
+    theme = JSON.parse(t);
+  });
 
   function changeTheme() {
-    theme = themes[(themes.indexOf(theme) + 1) % themes.length];
+    configService.set([["theme", JSON.stringify(theme)]]);
 
-    configStore.update((state) => {
-      state.theme = theme;
-
-      return state;
-    });
-
-    configService.set([["theme", theme]]);
-
-    document.querySelector("html")?.setAttribute("data-theme", theme);
+    document.querySelector("html")?.setAttribute("data-theme", theme.value);
   }
 
   ipcRenderer.on("urlinfo", (e, url) => {
@@ -38,6 +39,15 @@
 
   <div class="subtitle">Tema</div>
   <button class="switchTheme" on:click={changeTheme}>Cambia tema</button>
+  <Dropdown list={themes} bind:current={theme} change={changeTheme} />
+
+  <div class="subtitle">CFU Massimi</div>
+  <input
+    type="number"
+    name="cfu"
+    value={$configStore.maxCFU}
+    on:input={(e) => configService.set([["maxCFU", e.currentTarget.value]])}
+  />
 </div>
 
 <style lang="scss">

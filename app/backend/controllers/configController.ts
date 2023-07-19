@@ -9,7 +9,9 @@ export module configController {
   }
   export function set(req, res) {
     const { name, value } = req.body;
-    
+
+    console.log(name, value);
+
     configService.set(name, value);
     res.status(200).json({ message: "Config value set" });
   }

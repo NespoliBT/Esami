@@ -11,7 +11,7 @@
 
   let loading = true;
 
-  configService.get("profile").then((profile) => {
+  configService.get("profile").then((profile: string) => {
     loading = false;
 
     configStore.update((state) => {
@@ -33,14 +33,29 @@
     });
   });
 
+  configService.get("maxCFU").then((maxCFU: number) => {
+    if (maxCFU == null) {
+      maxCFU = 180;
+    }
+
+    configStore.update((state) => {
+      state.maxCFU = maxCFU;
+
+      return state;
+    });
+  });
+
   onMount(() => {
     configService.get("theme").then((data: string) => {
+      console.log(data);
+      const theme = JSON.parse(data);
+
       configStore.update((state) => {
-        state.theme = data;
+        state.theme = theme;
 
         return state;
       });
-      document.querySelector("html")?.setAttribute("data-theme", data);
+      document.querySelector("html")?.setAttribute("data-theme", theme.value);
     });
   });
 </script>

@@ -24,4 +24,19 @@
     .switchProfile {
         @include externalButton;
     }
+
+    input[type="number"] {
+        background-color: var(--color_2);
+        padding: 16px 24px;
+        font-size: 1.5rem;
+        border-radius: 16px;
+        max-width: 100px;
+        text-align: center;
+
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            appearance: none;
+            margin: 0;
+        }
+    }
 }

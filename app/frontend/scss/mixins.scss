@@ -182,3 +182,59 @@
         }
     }
 }
+
+@mixin dropdown {
+    margin-bottom: 32px;
+
+    .openDropdown {
+        border: 2px solid var(--color_4);
+        background-color: transparent;
+        font-size: 1.5rem;
+        padding: 8px 32px;
+        border-radius: 50px;
+        cursor: pointer;
+
+        &:after {
+            content: "";
+            font-family: NerdFont;
+            margin-left: 20px;
+        }
+
+        &.open {
+            &:after {
+                content: "";
+            }
+        }
+    }
+
+    .dropdown {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--color_2);
+        z-index: 20;
+        border: 2px solid var(--color_4);
+        border-radius: 16px;
+        margin-top: 16px;
+        padding: 16px;
+        gap: 8px;
+        font-size: 1.5rem;
+
+        .item {
+            padding: 8px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            background-color: transparent;
+            font-size: 1.5rem;
+            border: 2px solid transparent;
+
+            &.selected {
+                background-color: var(--color_6);
+            }
+
+            &:hover {
+                border: 2px solid var(--color_6);
+            }
+        }
+    }
+}

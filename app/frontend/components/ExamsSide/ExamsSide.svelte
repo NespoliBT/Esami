@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { examStore } from "app/frontend/stores";
+  import { configStore, examStore } from "app/frontend/stores";
   import { fly } from "svelte/transition";
 
   export let openForm = true;
@@ -67,7 +67,7 @@
             stroke-width="16"
             class="inner"
             style={`stroke-dashoffset: ${
-              6.28 * 80 - (credits / maxCredits) * 6.28 * 80
+              6.28 * 80 - (credits / $configStore.maxCFU) * 6.28 * 80
             }px`}
           />
         </svg>
