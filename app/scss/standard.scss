@@ -1,0 +1,37 @@
+@import "./variables.scss";
+
+:global(*) {
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color_3);
+    border-radius: 20px;
+  }
+
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  box-sizing: border-box;
+  font-weight: 100;
+  color: var(--color_9);
+  user-select: none;
+  font-weight: normal;
+}
+
+:global(body) {
+  background: var(--color_1);
+  font-family: DMSans;
+  font-weight: normal;
+}
+
+:global(body, html) {
+  height: 100%;
+  width: 100%;
+}

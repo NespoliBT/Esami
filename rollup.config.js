@@ -6,21 +6,29 @@ import typescript from "@rollup/plugin-typescript";
 import autoPreprocess from "svelte-preprocess";
 import alias from "@rollup/plugin-alias";
 import path from "path";
+import builtins from "rollup-plugin-node-builtins";
+import globals from "rollup-plugin-node-globals";
 
 const projectRootDir = path.resolve(__dirname);
 
 export default [
   {
-    input: ["app/backend/main.ts", "app/frontend/renderer.ts"],
+    input: ["app/renderer.ts"],
     output: {
       dir: "public/build",
-      format: "cjs",
+      format: "esm", // or "iife" for a self-executing function, suitable for <script> tags
       sourcemap: true,
     },
     plugins: [
+      commonjs({
+        browser: true,
+      }),
       nodeResolve({
         preferBuiltins: false,
+        browser: true,
       }),
+      builtins(), // Polyfill Node.js core modules
+      globals(), // Injects global variables that Node.js core modules might rely on
       svelte({
         css: (css) => {
           css.write("index.css");
@@ -33,27 +41,17 @@ export default [
             find: "@components",
             replacement: path.resolve(
               projectRootDir,
-              "app/frontend/components"
+              "app/components"
             ),
           },
         ],
       }),
-      commonjs(),
       json(),
       typescript(),
     ],
+    // Make sure any necessary modules are properly externalized
     external: [
-      "electron",
-      "child_process",
-      "fs",
-      "path",
-      "url",
-      "module",
-      "os",
-      "express",
-      "electron-updater",
-      "better-sqlite3",
-      "axios",
+      // You can add specific modules here that shouldn't be bundled
     ],
   },
 ];

@@ -1,5 +1,4 @@
 - lezioni annullate
-- CFU in settings
 - tema personalizzato
 - suggestions esami
 - prediction cfu => nuova media

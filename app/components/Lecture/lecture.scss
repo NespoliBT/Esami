@@ -1,0 +1,90 @@
+@import "../../scss/variables.scss";
+
+.lecture {
+    background: var(--color_2);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-radius: 8px;
+    position: relative;
+    background: #212931;
+    box-shadow: 0 0 20px -5px #00000033;
+    transition: .2s;
+
+    &.past {
+        height: fit-content;
+        gap: 4px;
+        border-radius: 4px;
+
+        .name {
+            font-size: 16px;
+        }
+
+        .classroom {
+            font-size: 12px;
+        }
+
+        .date {
+            font-size: 13px;
+
+            .day,
+            .hour {
+                gap: 8px;
+
+                &:before {
+                    font-size: 24px;
+                }
+            }
+        }
+    }
+
+    &.today {
+        border: 2px solid var(--color_6);
+    }
+
+    .name {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--color_4);
+    }
+
+    .classroom {
+        color: var(--color_9);
+        opacity: 0.7;
+        border-bottom: 2px dashed var(--color_7);
+        padding-bottom: 8px;
+    }
+
+    .date {
+
+        .day,
+        .hour {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 8px;
+            font-size: 1.1rem;
+
+            &::before {
+                font-family: NerdFont;
+                font-size: 32px;
+            }
+        }
+
+        .day::before {
+            content: "";
+        }
+
+        .hour::before {
+            content: "";
+        }
+    }
+
+    .today {
+        color: var(--color_6);
+        position: absolute;
+        bottom: 16px;
+        right: 16px;
+    }
+}
